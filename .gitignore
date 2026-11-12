@@ -1,0 +1,18 @@
+# Dependencies & node
+node_modules/
+package-lock.json
+
+# Binaries and build artifacts
+java_hibernate/build/
+*.class
+
+# Python cache & temp scripts
+__pycache__/
+*.pyc
+*.py
+test_term_gen.py
+uploads/
+
+# Documents (Keep local only)
+*.docx
+*.doc
