@@ -2,6 +2,7 @@ package data.parkir.view;
 
 import data.parkir.dao.ParkirDAO;
 import data.parkir.model.Parkir;
+import data.parkir.service.LaporanService;
 import data.parkir.service.SpringUtil;
 import data.parkir.service.TarifParkir;
 import java.awt.*;
@@ -93,6 +94,13 @@ public class FormAplikasiParkir extends JFrame {
         btnHapus.setFont(new Font("Segoe UI", Font.BOLD, 12));
         btnHapus.addActionListener(e -> aksiHapus());
         panelBawah.add(btnHapus);
+
+        JButton btnCetak = new JButton("4. Cetak Laporan");
+        btnCetak.setBackground(new Color(37, 99, 235));
+        btnCetak.setForeground(Color.WHITE);
+        btnCetak.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        btnCetak.addActionListener(e -> aksiCetakLaporan());
+        panelBawah.add(btnCetak);
 
         JButton btnRefresh = new JButton("Refresh Tabel");
         btnRefresh.addActionListener(e -> muatData());
@@ -216,6 +224,19 @@ public class FormAplikasiParkir extends JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Gagal menghapus data!", "Error", JOptionPane.ERROR_MESSAGE);
             }
+        }
+    }
+
+    private void aksiCetakLaporan() {
+        try {
+            List<Parkir> data = dao.getAll();
+            int total = dao.hitungTotalPendapatan();
+            LaporanService.cetakLaporan(data, total);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,
+                "Gagal mencetak laporan JasperReports:\n" + ex.getMessage(),
+                "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }
     }
 
